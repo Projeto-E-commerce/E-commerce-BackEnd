@@ -5,12 +5,10 @@ class Cart(models.Model):
     total_price = models.DecimalField(
         max_digits=6,
         decimal_places=2,
-        read_only=True,
-        # read only pois a logica do total sera feita pelo serializer
     )
 
 
-class Cart_product(models.Model):
+class CartProduct(models.Model):
     cart = models.ForeignKey(
         "carts.Cart",
         on_delete=models.CASCADE,

@@ -10,5 +10,13 @@ class OrderStatusChoices(models.TextChoices):
 class Order(models.Model):
     ordered_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(
-        choices=OrderStatusChoices.choices, default=OrderStatusChoices.PLACED
+        max_length=20,
+        choices=OrderStatusChoices.choices,
+        default=OrderStatusChoices.PLACED,
+    )
+
+    user = models.ForeignKey(
+        "users.User",
+        on_delete=models.CASCADE,
+        related_name="orders",
     )
