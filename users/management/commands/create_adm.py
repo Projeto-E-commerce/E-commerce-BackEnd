@@ -25,6 +25,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         user = kwargs["username"]
         password = kwargs["password"]
+
         email = kwargs["email"]
 
         User.objects.create_superuser(

@@ -2,7 +2,7 @@ from .models import User
 from addresses.models import Address
 from .serializer import UserSerializer
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from .permissions import IsUserPermission
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 import ipdb
@@ -21,6 +21,6 @@ class UserView(generics.ListCreateAPIView):
 
 class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsUserPermission]
     queryset = User.objects.all()
     serializer_class = UserSerializer
