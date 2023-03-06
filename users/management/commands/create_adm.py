@@ -21,4 +21,4 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         user = kwargs["username"]
         password = kwargs["password"]
-        User.objects.create_superuser(username=user, password=password)
+        User.objects.create_superuser(username="user", password="password")
