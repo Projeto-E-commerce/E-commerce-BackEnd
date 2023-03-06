@@ -5,16 +5,20 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('carts', '0002_initial'),
-        ('users', '0001_initial'),
+        ("carts", "0002_initial"),
+        ("users", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='user',
-            name='cart',
-            field=models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='cart_user', to='carts.cart'),
+            model_name="user",
+            name="cart",
+            field=models.OneToOneField(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="cart_user",
+                to="carts.cart",
+            ),
         ),
     ]
