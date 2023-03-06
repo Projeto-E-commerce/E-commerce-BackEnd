@@ -17,13 +17,12 @@ class User(AbstractUser):
     )
 
     cart = models.OneToOneField(
-        "carts.Cart",
-        on_delete=models.CASCADE,
-        related_name="cart_user",
+        "carts.Cart", on_delete=models.CASCADE, related_name="cart_user", null=True
     )
 
     address = models.OneToOneField(
         "addresses.Address",
         on_delete=models.CASCADE,
         related_name="address_user",
+        null=True,
     )
