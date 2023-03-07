@@ -15,6 +15,7 @@ class User(AbstractUser):
         choices=ChoiceUser.choices,
         default=ChoiceUser.CLIENT,
     )
+    # is_salesman = models.BooleanField(default=False)
 
     cart = models.OneToOneField(
         "carts.Cart",
