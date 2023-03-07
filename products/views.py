@@ -10,7 +10,7 @@ import ipdb
 # Create your views here.
 class ProductView(generics.ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [SalesmanPermission]
+    # permission_classes = [SalesmanPermission]
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 

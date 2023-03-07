@@ -1,3 +1,4 @@
+from carts.models import Cart
 from .models import User
 from addresses.models import Address
 from .serializer import UserSerializer
@@ -16,7 +17,8 @@ class UserView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         address = self.request.data.pop("address")
         address_obj = Address.objects.create(**address)
-        return serializer.save(address=address_obj)
+        cart = Cart.objects.create()
+        return serializer.save(address=address_obj, cart=cart)
 
 
 class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
