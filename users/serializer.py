@@ -13,6 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
     def update(self, instance: User, validated_data: dict) -> User:
         address = validated_data.pop("address")
         Address.objects.update(**address)
+
         for key, value in validated_data.items():
             if key == "password":
                 instance.set_password(validated_data["password"])
@@ -50,4 +51,3 @@ class UserSerializer(serializers.ModelSerializer):
                 ],
             },
         }
-        read_only_fields = ["type_user"]
