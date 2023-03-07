@@ -50,4 +50,4 @@ class UserSerializer(serializers.ModelSerializer):
                 ],
             },
         }
-        read_only_fields = ["type_user"]
+        # read_only_fields = ["type_user"]
