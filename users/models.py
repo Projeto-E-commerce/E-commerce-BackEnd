@@ -18,15 +18,15 @@ class User(AbstractUser):
     # is_salesman = models.BooleanField(default=False)
 
     cart = models.OneToOneField(
-        "carts.Cart",
-        on_delete=models.CASCADE,
-        related_name="cart_user",
-        null=True
+        "carts.Cart", on_delete=models.CASCADE, related_name="cart_user", null=True
     )
 
     address = models.OneToOneField(
         "addresses.Address",
         on_delete=models.CASCADE,
         related_name="address_user",
-        null=True
+        null=True,
     )
+
+    def __repr__(self) -> str:
+        return f"{self.cart} --- {self.username}"

@@ -12,9 +12,7 @@ class IsUserPermission(permissions.BasePermission):
             or obj == request.user
         )
 
+
 class ViewCartPermission(permissions.BasePermission):
     def has_object_permission(self, request, view: View, obj: CartProduct):
-        return (
-            request.user.is_authenticated
-            and obj == request.user
-        )
+        return request.user.is_authenticated and obj == request.user
