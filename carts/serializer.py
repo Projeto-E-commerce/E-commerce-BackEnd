@@ -5,7 +5,7 @@ from products.serializer import ProductSerializer
 
 
 class CartSerializer(serializers.ModelSerializer):
-    product = ProductSerializer()
+    # product = ProductSerializer()
 
     def create(self, validated_data: dict) -> CartProduct:
         return CartProduct.objects.create(**validated_data)

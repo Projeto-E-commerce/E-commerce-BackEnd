@@ -30,5 +30,7 @@ class Order(models.Model):
         "users.User",
         on_delete=models.CASCADE,
         related_name="salesman_product",
-        null=True
+        null=True,
     )
+
+    products_list = models.JSONField(default=dict)

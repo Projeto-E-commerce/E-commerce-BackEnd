@@ -14,7 +14,6 @@ class CartCreateView(generics.CreateAPIView):
     queryset = CartProduct.objects.all()
     serializer_class = CartSerializer
 
-    ipdb.set_trace()
     def perform_create(self, serializer):
         product = self.kwargs.get("pk")
         get_product = get_object_or_404(Product, id=product)

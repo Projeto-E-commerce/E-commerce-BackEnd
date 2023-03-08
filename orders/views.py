@@ -17,33 +17,39 @@ class OrderViewl(generics.ListCreateAPIView):
     queryset = Order.objects.all().order_by("id")
     serializer_class = OrderSerializer
 
-    def post(self, request: Request):
+    def post(self, request):
         cart_id = self.request.user.cart.id
         products_cart = CartProduct.objects.all().filter(cart_id=cart_id)
 
         salesmans = set([product.product.owner for product in products_cart])
 
-        products_for_salesman = {}
+        order_return = {}
         for salesman in salesmans:
-            products_for_salesman[salesman.username] = products_cart.filter(
-                product__owner=salesman
-            )
+            products_for_salesman = products_cart.filter(product__owner=salesman)
 
-        total_price = 0
-        for product in products_cart:
-            total_price += product.product.price
-
-        for order in products_for_salesman:
-            salesman = get_object_or_404(User, username=order)
             price_total = 0
-            for product in order:
-                product_get = get_object_or_404(Product, id=product)
-                price_total += product_get.price
-                # ipdb.set_trace()
+            products_list = []
+            for product in products_for_salesman:
+                product_get = get_object_or_404(Product, id=product.product.id)
+                price_total += product_get.price * product.product_count
+                products_list.append(
+                    {
+                        "id": product_get.id,
+                        "name": product_get.name,
+                        "category": product_get.category,
+                        "description": product_get.description,
+                        "price": str(product_get.price * product.product_count),
+                        "count": product.product_count,
+                    }
+                )
+
             Order.objects.create(
                 total_order=price_total,
                 user=self.request.user,
-                salesman=salesman
+                salesman=salesman,
+                products_list=products_list,
             )
 
-        return Response(status.HTTP_201_CREATED)
+            order_return[salesman.username] = products_list
+
+        return Response(order_return, status.HTTP_201_CREATED)
