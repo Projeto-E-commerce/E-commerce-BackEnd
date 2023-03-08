@@ -11,7 +11,6 @@ class ProductSerializer(serializers.ModelSerializer):
         for key, value in validated_data.items():
             setattr(instance, key, value)
         instance.save()
-
         return instance
 
     owner = serializers.SlugRelatedField(read_only=True, slug_field="username")

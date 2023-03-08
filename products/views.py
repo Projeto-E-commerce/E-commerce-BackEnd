@@ -14,7 +14,7 @@ class ProductView(generics.ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [SalesmanPermission]
 
-    queryset = Product.objects.all().order_by('id')
+    queryset = Product.objects.all().order_by("id")
     serializer_class = ProductSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = ProductFilter

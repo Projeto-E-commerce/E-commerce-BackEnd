@@ -4,15 +4,30 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('products', '0002_initial'),
+        ("products", "0002_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='product',
-            name='category',
-            field=models.CharField(choices=[('alimentos', 'Alimentos'), ('bebidas', 'Bebidas'), ('brinquedos', 'Brinquedos'), ('jogos', 'Jogos'), ('eletronicos', 'Eletronico'), ('celulares', 'Celulares'), ('automotivo', 'Automotivo'), ('informatica', 'Informatica'), ('livros', 'Livros'), ('pet shop', 'Pet Shop'), ('', 'Default')], default='', max_length=50),
+            model_name="product",
+            name="category",
+            field=models.CharField(
+                choices=[
+                    ("alimentos", "Alimentos"),
+                    ("bebidas", "Bebidas"),
+                    ("brinquedos", "Brinquedos"),
+                    ("jogos", "Jogos"),
+                    ("eletronicos", "Eletronico"),
+                    ("celulares", "Celulares"),
+                    ("automotivo", "Automotivo"),
+                    ("informatica", "Informatica"),
+                    ("livros", "Livros"),
+                    ("pet shop", "Pet Shop"),
+                    ("", "Default"),
+                ],
+                default="",
+                max_length=50,
+            ),
         ),
     ]

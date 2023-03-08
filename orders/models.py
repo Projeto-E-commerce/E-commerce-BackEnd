@@ -14,9 +14,21 @@ class Order(models.Model):
         choices=OrderStatusChoices.choices,
         default=OrderStatusChoices.PLACED,
     )
+    total_order = models.DecimalField(
+        max_digits=6,
+        decimal_places=2,
+        null=True,
+    )
 
     user = models.ForeignKey(
         "users.User",
         on_delete=models.CASCADE,
         related_name="orders",
+    )
+
+    salesman = models.ForeignKey(
+        "users.User",
+        on_delete=models.CASCADE,
+        related_name="salesman_product",
+        null=True
     )

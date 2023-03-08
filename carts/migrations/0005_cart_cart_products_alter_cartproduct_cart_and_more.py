@@ -5,26 +5,33 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('products', '0003_alter_product_category'),
-        ('carts', '0004_cartproduct_product_count'),
+        ("products", "0003_alter_product_category"),
+        ("carts", "0004_cartproduct_product_count"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='cart',
-            name='cart_products',
-            field=models.ManyToManyField(related_name='shopping_cart', through='carts.CartProduct', to='products.product'),
+            model_name="cart",
+            name="cart_products",
+            field=models.ManyToManyField(
+                related_name="shopping_cart",
+                through="carts.CartProduct",
+                to="products.product",
+            ),
         ),
         migrations.AlterField(
-            model_name='cartproduct',
-            name='cart',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='carts.cart'),
+            model_name="cartproduct",
+            name="cart",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="carts.cart"
+            ),
         ),
         migrations.AlterField(
-            model_name='cartproduct',
-            name='product',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='products.product'),
+            model_name="cartproduct",
+            name="product",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="products.product"
+            ),
         ),
     ]
