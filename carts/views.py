@@ -1,3 +1,4 @@
+from rest_framework.views import Response, status
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from carts.serializer import CartProductSerializer
@@ -13,16 +14,37 @@ class CartCreateView(generics.CreateAPIView):
     queryset = CartProduct.objects.all()
     serializer_class = CartProductSerializer
 
-    def perform_create(self, serializer):
-        product = self.kwargs.get("pk")
-        get_product = get_object_or_404(
-            Product,
-            id=product,
-        )
-        serializer.save(
+    def post(self, request, *args, **kwargs):
+        product_id = kwargs["pk"]
+        cart_product = CartProduct.objects.filter(
             cart=self.request.user.cart,
-            product=get_product,
-        )
+            product__id=product_id,
+            active=True,
+        ).first()
+        if cart_product is not None:
+            cart_product.product_count += int(self.request.data["product_count"])
+            cart_product.save()
+            return Response(
+                {
+                    "message": f"Product already in your cart. Its new count is {cart_product.product_count}"
+                },
+                status.HTTP_201_CREATED,
+            )
+        else:
+            get_product = get_object_or_404(
+                Product,
+                id=product_id,
+            )
+            cart_order = CartProduct.objects.create(
+                cart=self.request.user.cart,
+                product=get_product,
+                product_count=int(self.request.data["product_count"]),
+            )
+            serializer = CartProductSerializer(cart_order)
+            return Response(
+                serializer.data,
+                status.HTTP_201_CREATED,
+            )
 
 
 class CartView(generics.ListAPIView):

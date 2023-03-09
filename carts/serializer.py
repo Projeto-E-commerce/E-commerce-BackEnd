@@ -1,8 +1,10 @@
 from rest_framework import serializers
 from .models import CartProduct
+from products.serializer import ProductSerializer
 
 
 class CartProductSerializer(serializers.ModelSerializer):
+    product = ProductSerializer(required=False)
     total_price = serializers.SerializerMethodField()
 
     def create(self, validated_data: dict) -> CartProduct:
@@ -24,6 +26,5 @@ class CartProductSerializer(serializers.ModelSerializer):
         fields = "__all__"
         read_only_fields = [
             "cart",
-            "product",
             "total_price",
         ]
