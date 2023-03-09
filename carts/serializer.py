@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import CartProduct
-
+import ipdb
 
 class CartProductSerializer(serializers.ModelSerializer):
     total_price = serializers.SerializerMethodField()
