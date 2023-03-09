@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('carts', '0007_cartproduct_total_price'),
+        ("carts", "0007_cartproduct_total_price"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='cartproduct',
-            name='active',
+            model_name="cartproduct",
+            name="active",
             field=models.BooleanField(default=True),
         ),
     ]
