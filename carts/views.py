@@ -27,11 +27,10 @@ class CartCreateView(generics.CreateAPIView):
         if cart_product is not None:
             cart_product.product_count += int(self.request.data["product_count"])
             cart_product.save()
+            serializer = CartProductSerializer(cart_product)
             return Response(
-                {
-                    "message": f"Product already in your cart. Its new count is {cart_product.product_count}"
-                },
-                status.HTTP_201_CREATED,
+                serializer.data,
+                status=status.HTTP_201_CREATED,
             )
         else:
             get_product = get_object_or_404(
