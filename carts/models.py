@@ -3,7 +3,6 @@ from django.db import models
 from products.models import Product
 
 
-# Create your models here.
 class Cart(models.Model):
     cart_products = models.ManyToManyField(
         Product, through="carts.CartProduct", related_name="shopping_cart"
@@ -11,6 +10,7 @@ class Cart(models.Model):
 
 
 class CartProduct(models.Model):
+    active = models.BooleanField(default=True)
     cart = models.ForeignKey(
         Cart,
         on_delete=models.CASCADE,

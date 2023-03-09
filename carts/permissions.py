@@ -1,6 +1,5 @@
 from rest_framework import permissions
 from .models import CartProduct
-from rest_framework.views import Request, View
 from rest_framework.views import View
 
 
