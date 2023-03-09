@@ -15,10 +15,12 @@ class User(AbstractUser):
         choices=ChoiceUser.choices,
         default=ChoiceUser.CLIENT,
     )
-    # is_salesman = models.BooleanField(default=False)
 
     cart = models.OneToOneField(
-        "carts.Cart", on_delete=models.CASCADE, related_name="cart_user", null=True
+        "carts.Cart",
+        on_delete=models.CASCADE,
+        related_name="cart_user",
+        null=True,
     )
 
     address = models.OneToOneField(

@@ -1,11 +1,10 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from carts.serializer import CartProductSerializer
 from products.models import Product
-from .models import Cart, CartProduct
+from .models import CartProduct
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .permissions import IsUserPermission, ViewCartPermission
-import ipdb
 
 
 class CartCreateView(generics.CreateAPIView):
@@ -16,8 +15,14 @@ class CartCreateView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         product = self.kwargs.get("pk")
-        get_product = get_object_or_404(Product, id=product)
-        serializer.save(cart=self.request.user.cart, product=get_product)
+        get_product = get_object_or_404(
+            Product,
+            id=product,
+        )
+        serializer.save(
+            cart=self.request.user.cart,
+            product=get_product,
+        )
 
 
 class CartView(generics.ListAPIView):
@@ -27,13 +32,15 @@ class CartView(generics.ListAPIView):
     serializer_class = CartProductSerializer
 
     def get_queryset(self):
-        cart = CartProduct.objects.filter(cart=self.request.user.cart)
+        cart = CartProduct.objects.filter(
+            cart=self.request.user.cart,
+            active=True,
+        )
         return cart
 
 
 class CartUpdateView(generics.UpdateAPIView, generics.DestroyAPIView):
     authentication_classes = [JWTAuthentication]
-    # permission_classes = [ViewCartPermission]
     queryset = CartProduct.objects.all()
     serializer_class = CartProductSerializer
 

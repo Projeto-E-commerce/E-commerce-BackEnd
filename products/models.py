@@ -18,7 +18,9 @@ class ChoiceCategory(models.TextChoices):
 class Product(models.Model):
     name = models.CharField(max_length=50)
     category = models.CharField(
-        max_length=50, choices=ChoiceCategory.choices, default=ChoiceCategory.DEFAULT
+        max_length=50,
+        choices=ChoiceCategory.choices,
+        default=ChoiceCategory.DEFAULT,
     )
     storage = models.PositiveIntegerField()
     price = models.DecimalField(max_digits=6, decimal_places=2)

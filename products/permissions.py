@@ -1,7 +1,5 @@
 from rest_framework import permissions
-from rest_framework.views import Request, View
 from rest_framework.views import View
-import ipdb
 
 
 class SalesmanPermission(permissions.BasePermission):

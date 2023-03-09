@@ -5,8 +5,6 @@ from .serializer import UserSerializer
 from rest_framework import generics
 from .permissions import IsUserPermission
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
-import ipdb
 from rest_framework.views import Response, status
 
 
@@ -30,13 +28,18 @@ class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop("partial", False)
         instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer = self.get_serializer(
+            instance,
+            data=request.data,
+            partial=partial,
+        )
         serializer.is_valid(raise_exception=True)
 
         if "type_user" in self.request.data:
             if self.request.data["type_user"] == "admin":
                 return Response(
-                    {"message": "Permission"}, status=status.HTTP_401_UNAUTHORIZED
+                    {"message": "Permission"},
+                    status=status.HTTP_401_UNAUTHORIZED,
                 )
 
         self.perform_update(serializer)
