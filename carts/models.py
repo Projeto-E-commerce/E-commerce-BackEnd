@@ -19,6 +19,7 @@ class CartProduct(models.Model):
     product = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,
+        null=True
     )
 
     product_count = models.PositiveIntegerField(default=1)
