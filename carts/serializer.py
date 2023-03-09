@@ -1,10 +1,12 @@
 from rest_framework import serializers
 from .models import CartProduct
+from products.serializer import ProductSerializer
 
 from products.serializer import ProductSerializer
 
 
 class CartProductSerializer(serializers.ModelSerializer):
+    product = ProductSerializer(required=False)
     total_price = serializers.SerializerMethodField()
     product = ProductSerializer(required=False)
 
@@ -24,8 +26,9 @@ class CartProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CartProduct
-        fields = [
-            "id",
+        fields = "__all__"
+        read_only_fields = [
+            "cart",
             "total_price",
             "product_count",
             "product",
