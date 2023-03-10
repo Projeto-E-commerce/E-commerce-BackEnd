@@ -5,9 +5,10 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from .permissions import SalesmanPermission, SalesmanUpdatedPermission
 from products.filters import ProductFilter
 from django_filters import rest_framework as filters
+from products.mixins import ProductsMixin
 
 
-class ProductView(generics.ListCreateAPIView):
+class ProductView(ProductsMixin, generics.ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [SalesmanPermission]
 
