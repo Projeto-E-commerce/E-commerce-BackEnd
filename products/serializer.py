@@ -26,7 +26,8 @@ class ProductSerializer(serializers.ModelSerializer):
             "owner",
         ]
         read_only_fields = ["owner"]
-        required = {'product': False}
+        required = {"product": False}
+
 
 class ProductForUserSerializer(serializers.ModelSerializer):
     owner = serializers.SlugRelatedField(read_only=True, slug_field="username")
@@ -42,4 +43,4 @@ class ProductForUserSerializer(serializers.ModelSerializer):
             "owner",
         ]
         read_only_fields = ["owner"]
-        required = {'product': False}
+        required = {"product": False}
