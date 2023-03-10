@@ -34,7 +34,7 @@ THIRD_PARTY_APPS = [
     "rest_framework",
     "drf_spectacular",
     "django_filters",
-    "corsheaders",
+    # "corsheaders",
 ]
 
 MY_APPS = [
@@ -55,7 +55,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
+    # "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = "_ecommerce.urls"
