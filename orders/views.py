@@ -1,16 +1,10 @@
-from rest_framework.views import Response, status
 from rest_framework import generics
 from rest_framework_simplejwt.authentication import JWTAuthentication
-
 from orders.mixins import OrderMixin
 from .models import Order
 from .serializer import OrderSerializer
-from carts.models import CartProduct
 from rest_framework.permissions import IsAuthenticated
-from django.shortcuts import get_object_or_404
-from products.models import Product
 from .permission import IsSalesmanPermission
-from .exceptions import StorageError
 
 
 class OrderViewl(OrderMixin, generics.CreateAPIView):
