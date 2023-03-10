@@ -1,3 +1,4 @@
+from django.core.management.utils import get_random_secret_key
 from pathlib import Path
 from datetime import timedelta
 import os
@@ -13,18 +14,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 dotenv.load_dotenv()
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = os.getenv("SECRET_KEY", get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-RAILWAY_STATIC_URL = os.getenv("RAILWAY_STATIC_URL")
+RENDER_EXTERNAL_HOSTNAME = os.getenv("RENDER_EXTERNAL_HOSTNAME")
 
-if RAILWAY_STATIC_URL:
-    # Configuramos o host permitindo que o nosso app Railway se conecte ao server do Django
-    ALLOWED_HOSTS += [RAILWAY_STATIC_URL, "0.0.0.0"]
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS +=[RENDER_EXTERNAL_HOSTNAME, "0.0.0.0"]
 
 # Application definition
 DJANGO_APPS = [
