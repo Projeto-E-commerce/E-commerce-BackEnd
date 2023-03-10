@@ -34,6 +34,7 @@ THIRD_PARTY_APPS = [
     "rest_framework",
     "drf_spectacular",
     "django_filters",
+    "corsheaders",
 ]
 
 MY_APPS = [
@@ -54,6 +55,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = "_ecommerce.urls"
@@ -146,9 +148,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "users.User"
 
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
+
 SPECTACULAR_SETTINGS = {
     "TITLE": "E-commerce",
-    "DESCRIPTION": "Transição de um projeto Kenzie para Generic Views, Model serializers e migração para postgress",
+    "DESCRIPTION": "API desenvolvida para e-commerce de produtos diversos. A aplicação permite cadastrar usuários e vendedores, que podem oferecer seus produtos e adquirir produtos de outros vendedores. Também permite registrar os pedidos feitos pelo usuário e acompanhar o status das solicitações.",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
 }
