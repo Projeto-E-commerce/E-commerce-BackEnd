@@ -25,7 +25,9 @@ class CartCreateView(generics.CreateAPIView):
             active=True,
         ).first()
         if cart_product is not None:
-            cart_product.product_count += int(self.request.data["product_count"])
+            cart_product.product_count += int(
+                self.request.data["product_count"],
+            )
             cart_product.save()
             serializer = CartProductSerializer(cart_product)
             return Response(
@@ -40,7 +42,9 @@ class CartCreateView(generics.CreateAPIView):
             cart_order = CartProduct.objects.create(
                 cart=self.request.user.cart,
                 product=get_product,
-                product_count=int(self.request.data["product_count"]),
+                product_count=int(
+                    self.request.data["product_count"],
+                ),
             )
             serializer = CartProductSerializer(cart_order)
             return Response(
