@@ -1,14 +1,11 @@
 from rest_framework import serializers
 from .models import CartProduct
-from products.serializer import ProductSerializer
-
-from products.serializer import ProductSerializer
+from products.serializer import ProductForUserSerializer
 
 
 class CartProductSerializer(serializers.ModelSerializer):
-    product = ProductSerializer(required=False)
     total_price = serializers.SerializerMethodField()
-    product = ProductSerializer(required=False)
+    product = ProductForUserSerializer(required=False)
 
     def create(self, validated_data: dict) -> CartProduct:
         return CartProduct.objects.create(**validated_data)
@@ -39,4 +36,5 @@ class CartProductSerializer(serializers.ModelSerializer):
         ]
         extra_kwargs = {
             "active": {"write_only": True},
+            "cart": {"write_only": True},
         }
