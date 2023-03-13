@@ -10,9 +10,9 @@ class UserSerializer(serializers.ModelSerializer):
         return User.objects.create_user(**validated_data)
 
     def update(self, instance: User, validated_data: dict) -> User:
-        if validated_data["address"]:
-            address = validated_data.pop("address")
-            Address.objects.update(**address)
+        if 'address' in validated_data:
+            new_address = validated_data.pop("address")
+            Address.objects.update(**new_address)
         for key, value in validated_data.items():
             if key == "password":
                 instance.set_password(validated_data["password"])

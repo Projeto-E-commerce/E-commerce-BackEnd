@@ -38,7 +38,7 @@ class OrderMixin:
                 )
                 try:
                     if product.product_count > product_get.storage:
-                        raise StorageError(f"You can\'t buy '{product_get.name}'. There are not {product.product_count} items in storage.")
+                        raise StorageError(f"You can\'t buy '{product_get.name}'. There are {product_get.storage} items in storage.")
                     product_get.storage -= product.product_count
                     product_get.save()
                 except StorageError as e:
