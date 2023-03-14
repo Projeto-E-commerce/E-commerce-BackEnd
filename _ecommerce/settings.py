@@ -49,6 +49,7 @@ MY_APPS = [
     "carts",
     "orders",
     "products",
+    "favorits",
     "coupons",
 ]
 
