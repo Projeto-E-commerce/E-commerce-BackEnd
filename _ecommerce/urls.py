@@ -27,12 +27,9 @@ urlpatterns = [
     path("api/", include("users.urls")),
     path("api/", include("carts.urls")),
     path("api/", include("orders.urls")),
-<<<<<<< HEAD
     path("api/", include("favorits.urls")),
-=======
     path("api/", include("coupons.urls")),
     path("api/", include("addresses.urls")),
->>>>>>> 691ca1bb0f26a4e03f0aaef4a4f4cf9900f07a48
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
         "api/docs/redoc/",

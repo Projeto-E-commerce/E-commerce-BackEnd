@@ -49,11 +49,8 @@ MY_APPS = [
     "carts",
     "orders",
     "products",
-<<<<<<< HEAD
     "favorits",
-=======
     "coupons",
->>>>>>> 691ca1bb0f26a4e03f0aaef4a4f4cf9900f07a48
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + MY_APPS
