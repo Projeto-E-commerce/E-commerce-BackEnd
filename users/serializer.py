@@ -50,11 +50,8 @@ class UserSerializer(serializers.ModelSerializer):
             "last_name",
             "type_user",
             "cart",
-<<<<<<< HEAD
             "favorite_list",
-=======
             "address_user",
->>>>>>> 691ca1bb0f26a4e03f0aaef4a4f4cf9900f07a48
         ]
         extra_kwargs = {
             "favorite_list": {"read_only": True},
