@@ -1,8 +1,9 @@
 from rest_framework import serializers
 from .models import User
-from addresses.models import Address
-from addresses.serializer import AddressSerializer
 from rest_framework.validators import UniqueValidator
+from django.forms.models import model_to_dict
+
+from addresses.serializer import AddressSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -10,9 +11,6 @@ class UserSerializer(serializers.ModelSerializer):
         return User.objects.create_user(**validated_data)
 
     def update(self, instance: User, validated_data: dict) -> User:
-        if 'address' in validated_data:
-            new_address = validated_data.pop("address")
-            Address.objects.update(**new_address)
         for key, value in validated_data.items():
             if key == "password":
                 instance.set_password(validated_data["password"])
@@ -22,7 +20,24 @@ class UserSerializer(serializers.ModelSerializer):
 
         return instance
 
-    address = AddressSerializer()
+    def to_representation(self, instance):
+        user_address = [
+            model_to_dict(address) for address in instance.address_user.all()
+        ]
+        address_obj = [
+            address for address in user_address if address["current_address"]
+        ]
+        return {
+            "user_id": instance.id,
+            "username": instance.username,
+            "email": instance.email,
+            "first_name": instance.first_name,
+            "last_name": instance.last_name,
+            "type_user": instance.type_user,
+            "address_user": address_obj[0] if len(address_obj) > 0 else None,
+        }
+
+    address_user = AddressSerializer(many=True)
 
     class Meta:
         model = User
@@ -34,8 +49,8 @@ class UserSerializer(serializers.ModelSerializer):
             "first_name",
             "last_name",
             "type_user",
-            "address",
             "cart",
+            "address_user",
         ]
         extra_kwargs = {
             "password": {"write_only": True},

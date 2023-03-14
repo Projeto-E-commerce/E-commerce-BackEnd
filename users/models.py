@@ -23,12 +23,5 @@ class User(AbstractUser):
         null=True,
     )
 
-    address = models.OneToOneField(
-        "addresses.Address",
-        on_delete=models.CASCADE,
-        related_name="address_user",
-        null=True,
-    )
-
     def __repr__(self) -> str:
         return f"{self.cart} --- {self.username}"
