@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     path("user/", views.UserView.as_view()),
+    path("user/logged/", views.UserLoggedView.as_view()),
     path("user/<int:pk>/", views.UserDetailView.as_view()),
     path("user/login/", jwt_views.TokenObtainPairView.as_view()),
 ]
