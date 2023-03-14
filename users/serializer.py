@@ -36,8 +36,10 @@ class UserSerializer(serializers.ModelSerializer):
             "type_user",
             "address",
             "cart",
+            "favorite_list",
         ]
         extra_kwargs = {
+            "favorite_list": {"read_only": True},
             "password": {"write_only": True},
             "cart": {"write_only": True},
             "email": {
