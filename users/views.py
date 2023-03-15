@@ -6,17 +6,28 @@ from rest_framework import generics
 from .permissions import IsUserPermission
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.views import Response, status
-
+import ipdb
 
 class UserView(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
     def perform_create(self, serializer):
-        address = self.request.data.pop("address")
-        address_obj = Address.objects.create(**address)
         cart = Cart.objects.create()
-        return serializer.save(address=address_obj, cart=cart)
+        return serializer.save(cart=cart)
+
+
+class UserLoggedView(generics.ListAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsUserPermission]
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    def get_queryset(self):
+        queryset = User.objects.filter(
+            id=self.request.user.id,
+        )
+        return queryset
 
 
 class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
