@@ -25,6 +25,7 @@ class Product(models.Model):
     storage = models.PositiveIntegerField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
     description = models.TextField(null=True)
+    product_URL = models.URLField(default="https://cdn1.staticpanvel.com.br/produtos/15/produto-sem-imagem.jpg")
 
     owner = models.ForeignKey(
         "users.User",

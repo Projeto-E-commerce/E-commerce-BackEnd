@@ -24,6 +24,7 @@ class ProductSerializer(serializers.ModelSerializer):
             "price",
             "description",
             "owner",
+            "product_URL"
         ]
         read_only_fields = ["owner"]
         required = {"product": False}
