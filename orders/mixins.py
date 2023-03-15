@@ -12,6 +12,7 @@ import ipdb
 class OrderMixin:
     def post(self, request):
         code = False
+        coupon_owner = False
         if "coupon" in request.data:
             code = request.data["coupon"]
             coupon_owner = get_object_or_404(Coupon, code=code)
@@ -34,13 +35,14 @@ class OrderMixin:
             products_list = []
             for product in products_for_salesman:
                 product_get = get_object_or_404(Product, id=product.product.id)
-                if coupon_owner.owner == salesman:
-                    desconto_decimal = coupon_owner.discount / Decimal("100")
-                    product_price = product_get.price * product.product_count
-                    valor_desconto = product_price * desconto_decimal
-                    price_final = product_price - valor_desconto
-                else:
-                    price_final = product_get.price * product.product_count
+                price_final = product_get.price * product.product_count
+                if coupon_owner:
+                    if coupon_owner.owner == salesman:
+                        desconto_decimal = coupon_owner.discount / Decimal("100")
+                        product_price = product_get.price * product.product_count
+                        valor_desconto = product_price * desconto_decimal
+                        price_final = product_price - valor_desconto
+                        
 
                 price_total += price_final
                 products_list.append(
@@ -49,7 +51,7 @@ class OrderMixin:
                         "name": product_get.name,
                         "category": product_get.category,
                         "description": product_get.description,
-                        "price": str(price_final),
+                        "price": str(round(price_final, 2)),
                         "count": product.product_count,
                     }
                 )
