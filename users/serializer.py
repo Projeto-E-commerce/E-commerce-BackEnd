@@ -37,7 +37,7 @@ class UserSerializer(serializers.ModelSerializer):
             "address_user": address_obj[0] if len(address_obj) > 0 else None,
         }
 
-    address_user = AddressSerializer(many=True)
+    address_user = AddressSerializer(many=True, required=False)
 
     class Meta:
         model = User
